@@ -29,5 +29,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: XI JURNAL_PKL
-          path: build/app/outputs/flutter-apk/Jurnal_PKL.apk
+          name: XI_JURNAL_PKL
+          path: build/app/outputs/flutter-apk/app-release.apk
