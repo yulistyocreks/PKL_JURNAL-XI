@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../main.dart';
 import '../services/auth_service.dart';
 import 'login_screen.dart';
 
@@ -55,7 +56,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
       children: [
         const Text('Profil', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         const SizedBox(height: 24),
-        Center(
+        const Center(
           child: CircleAvatar(
             radius: 40,
             child: Icon(Icons.person, size: 40),
@@ -68,6 +69,24 @@ class _ProfilScreenState extends State<ProfilScreen> {
             title: const Text('Username'),
             subtitle: Text(_username ?? '-'),
           ),
+        ),
+        const SizedBox(height: 12),
+        ValueListenableBuilder<ThemeMode>(
+          valueListenable: themeModeNotifier,
+          builder: (context, mode, _) {
+            final isDark = mode == ThemeMode.dark;
+            return Card(
+              child: SwitchListTile(
+                secondary: Icon(isDark ? Icons.dark_mode : Icons.light_mode),
+                title: const Text('Mode Gelap'),
+                subtitle: Text(isDark ? 'Aktif' : 'Nonaktif'),
+                value: isDark,
+                onChanged: (value) {
+                  simpanThemeMode(value ? ThemeMode.dark : ThemeMode.light);
+                },
+              ),
+            );
+          },
         ),
         const SizedBox(height: 24),
         FilledButton.icon(
