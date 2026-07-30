@@ -20,14 +20,21 @@ jobs:
       - name: Generate platform files
         run: flutter create --platforms=android .
 
+      - name: Set app label
+        run: |
+          sed -i 's/android:label="xi_jurnal_pkl"/android:label="XI JURNAL PKL"/' android/app/src/main/AndroidManifest.xml
+
       - name: Install dependencies
         run: flutter pub get
 
       - name: Build APK
         run: flutter build apk --release
 
+      - name: Rename APK
+        run: cp build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/XI-JURNAL_PKL.apk
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: XI_JURNAL_PKL
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: XI-JURNAL_PKL
+          path: build/app/outputs/flutter-apk/XI-JURNAL_PKL.apk
