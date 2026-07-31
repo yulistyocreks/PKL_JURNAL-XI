@@ -11,19 +11,28 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _index = 0;
+  final _pageController = PageController();
 
-  final _pages = const [
-    AktivitasScreen(),
-    ProfilScreen(),
-  ];
+  final _pages = const [AktivitasScreen(), ProfilScreen()];
+
+  void _pindah(int i) {
+    setState(() => _index = i);
+    _pageController.animateToPage(i, duration: const Duration(milliseconds: 250), curve: Curves.easeOut);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: _pages[_index]),
+      body: SafeArea(
+        child: PageView(
+          controller: _pageController,
+          onPageChanged: (i) => setState(() => _index = i),
+          children: _pages,
+        ),
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _index,
-        onDestinationSelected: (i) => setState(() => _index = i),
+        onDestinationSelected: _pindah,
         destinations: const [
           NavigationDestination(icon: Icon(Icons.assignment), label: 'Aktivitas PKL'),
           NavigationDestination(icon: Icon(Icons.person), label: 'Profil'),
