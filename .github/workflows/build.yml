@@ -20,21 +20,24 @@ jobs:
       - name: Generate platform files
         run: flutter create --platforms=android .
 
-      - name: Set app label
+      - name: Set NDK version
         run: |
-          sed -i 's/android:label="xi_jurnal_pkl"/android:label="XI JURNAL PKL"/' android/app/src/main/AndroidManifest.xml
+          sed -i '/^android {/a\    ndkVersion = "27.0.12077973"' android/app/build.gradle.kts
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build APK
-        run: flutter build apk --release
+      - name: Build APK (split per ABI, ukuran lebih kecil)
+        run: flutter build apk --release --split-per-abi
 
-      - name: Rename APK
-        run: cp build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/XI-JURNAL_PKL.apk
+      - name: 
+        run: |
+          mkdir -p build/app/outputs/renamed
+          cp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk build/app/outputs/renamed/XI-JURNAL_PKL-arm64.apk
+          cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk build/app/outputs/renamed/XI-JURNAL_PKL-armv7.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: XI-JURNAL_PKL
-          path: build/app/outputs/flutter-apk/XI-JURNAL_PKL.apk
+          path: build/app/outputs/renamed/
