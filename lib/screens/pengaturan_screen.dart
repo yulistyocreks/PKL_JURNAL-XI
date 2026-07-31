@@ -29,10 +29,11 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
 
   Future<void> _backup() async {
     final jsonStr = await _profileService.backupJson(widget.username);
+    final bytes = utf8.encode(jsonStr);
     final path = await FilePicker.platform.saveFile(
       dialogTitle: 'Simpan backup jurnal',
       fileName: 'backup_jurnal_${widget.username}.json',
-      bytes: Uint8List_from(jsonStr),
+      bytes: bytes,
     );
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
