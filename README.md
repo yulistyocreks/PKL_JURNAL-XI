@@ -117,4 +117,20 @@ lib/
 
 ## Rencana Ke Depan
 
-Versi besar berikutnya (sekitar v2.5.0) direncanakan pindah dari penyimpanan lokal ke server Firebase, dengan dua peran pengguna: **Admin** (bisa melihat jurnal semua siswa) dan **Pengguna** (siswa PKL biasa, hanya melihat jurnal sendiri).
+Versi besar berikutnya (sekitar v2.5.0) direncanakan pindah dari penyimpanan lokal ke server Firebase, dengan dua peran pengguna: **Admin** (pembimbing/guru) dan **Pengguna** (siswa PKL).
+
+### Kenapa Admin Bisa Melihat Jurnal Siswa?
+
+Jurnal PKL secara fungsi memang dibuat untuk diperiksa oleh pembimbing — sama seperti jurnal PKL fisik yang selama ini ditulis tangan dan rutin ditandatangani pembimbing setiap minggu. Fitur Admin di aplikasi ini menggantikan proses itu secara digital, bukan menciptakan pengawasan baru yang sebelumnya tidak ada.
+
+Data yang bisa dilihat Admin dibatasi hanya isi jurnal aktivitas PKL — bukan password siswa, bukan chat pribadi, dan bukan data lain di luar konteks laporan PKL.
+
+### Risiko yang Harus Diwaspadai
+
+Sistem seperti ini punya risiko nyata jika tidak dijaga dengan baik:
+
+- Jika akun Admin dibajak (password bocor, phishing, dll), pembajak bisa melihat jurnal semua siswa sekaligus — ini risiko yang jauh lebih besar dibanding akun siswa biasa yang cuma menyimpan data sendiri.
+- Karena itu, akun Admin **wajib** memakai keamanan berlapis (misalnya verifikasi dua langkah), dan jumlah akun Admin harus dibatasi seminim mungkin — idealnya hanya pembimbing yang benar-benar berwenang.
+- Ke depannya, setiap akses Admin ke data siswa akan dicatat (log) — supaya kalau ada penyalahgunaan, bisa dilacak siapa yang membuka data siapa dan kapan.
+
+Fitur ini akan dirancang dengan prinsip **akses seminimal mungkin** — Admin hanya bisa melihat, tidak bisa mengedit atau menghapus data siswa atas nama siswa tersebut.
