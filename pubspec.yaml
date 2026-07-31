@@ -1,7 +1,7 @@
 name: xi_jurnal_pkl
 description: Aplikasi XI JURNAL PKL - jurnal harian PKL offline.
 publish_to: 'none'
-version: 1.0.0+1
+version: 2.0.11+1
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -12,6 +12,12 @@ dependencies:
   shared_preferences: ^2.2.3
   intl: ^0.19.0
   cupertino_icons: ^1.0.6
+  image_picker: ^1.1.2
+  url_launcher: ^6.3.0
+  path_provider: ^2.1.4
+  pdf: ^3.11.1
+  share_plus: ^10.0.2
+  file_picker: ^8.1.2
 
 dev_dependencies:
   flutter_test:
