@@ -117,7 +117,7 @@ lib/
 
 ## Rencana Ke Depan
 
-Versi besar berikutnya (sekitar v2.5.0) direncanakan pindah dari penyimpanan lokal ke server Firebase, dengan dua peran pengguna: **Admin** (pembimbing/guru) dan **Pengguna** (siswa PKL).
+Versi besar berikutnya (sekitar v2.5.0) direncanakan pindah dari penyimpanan lokal ke server Firebase, dengan dua peran pengguna: **Admin** (Owner) dan **Pengguna** (Siswa PKL).
 
 ### Kenapa Admin Bisa Melihat Jurnal Siswa?
 
