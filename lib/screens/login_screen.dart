@@ -17,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   bool _obscure = true;
   bool _loading = false;
+  bool _ingatSaya = true;
   String? _errorText;
 
   @override
@@ -40,13 +41,12 @@ class _LoginScreenState extends State<LoginScreen> {
     final ok = await _authService.login(
       _usernameController.text.trim(),
       _passwordController.text,
+      ingatSaya: _ingatSaya,
     );
     if (!mounted) return;
     setState(() => _loading = false);
     if (ok) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-      );
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const HomeScreen()));
     } else {
       setState(() => _errorText = 'Username atau password salah');
     }
@@ -63,20 +63,13 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Icon(Icons.school, size: 56, color: Colors.blue.shade700),
+                Icon(Icons.menu_book_rounded, size: 56, color: Theme.of(context).colorScheme.primary),
                 const SizedBox(height: 12),
-                const Text(
-                  'Masuk ke Aktivitas PKL MU',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
+                const Text('Masuk ke XI JURNAL PKL', textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 24),
                 TextField(
                   controller: _usernameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Username',
-                    prefixIcon: Icon(Icons.person),
-                  ),
+                  decoration: const InputDecoration(labelText: 'Username', prefixIcon: Icon(Icons.person)),
                 ),
                 const SizedBox(height: 16),
                 TextField(
@@ -95,15 +88,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 8),
                   Text(_errorText!, style: const TextStyle(color: Colors.red)),
                 ],
-                const SizedBox(height: 8),
+                CheckboxListTile(
+                  value: _ingatSaya,
+                  onChanged: (v) => setState(() => _ingatSaya = v ?? true),
+                  title: const Text('Ingat Saya', style: TextStyle(fontSize: 13)),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  contentPadding: EdgeInsets.zero,
+                  dense: true,
+                ),
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
-                      );
-                    },
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ForgotPasswordScreen())),
                     child: const Text('Lupa Sandi?'),
                   ),
                 ),
@@ -112,11 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: _loading ? null : _login,
                   style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 14)),
                   child: _loading
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                        )
+                      ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                       : const Text('Login'),
                 ),
                 const SizedBox(height: 12),
@@ -125,11 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     const Text('Belum punya akun?'),
                     TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => const RegisterScreen()),
-                        );
-                      },
+                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const RegisterScreen())),
                       child: const Text('Tambah Akun'),
                     ),
                   ],
